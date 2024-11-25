@@ -18,7 +18,7 @@
 // by user at some point and won't be included...
 //-------------------------------------------------------------------------------------
 
-#ifndef RA_NO_WIN_EXTRA
+#ifndef REPLAY_WIN_NO_EXTRA
 // If defined, the following flags inhibit definition of the indicated items.
 #define NOGDICAPMASKS     // CC_*, LC_*, PC_*, CP_*, TC_*, RC_
 #define NOVIRTUALKEYCODES // VK_*
@@ -62,7 +62,7 @@
 #endif
 
 // Type required before windows.h inclusion
-#ifndef RA_NO_WIN_USER_MSG
+#ifndef REPLAY_WIN_NO__USER_MSG
 #if !defined(_WINUSER_) || defined(NOUSER) || defined(NOMSG)
 typedef struct tagMSG *LPMSG;
 #endif
@@ -71,7 +71,7 @@ typedef struct tagMSG *LPMSG;
 #include <windows.h>        // Windows functionality (miniaudio)
 
 // Type required by some unused function...
-#ifndef RA_NO_WIN_BIRMAP_INFO
+#ifndef REPLAY_WIN_NO_BIRMAP_INFO
 #if !defined(_WINGDI_) || defined(NOGDI)
 typedef struct tagBITMAPINFOHEADER {
   DWORD biSize;
@@ -89,7 +89,7 @@ typedef struct tagBITMAPINFOHEADER {
 #endif
 #endif
 
-#ifndef RA_NO_WIN_MEDIA_INCLUDE
+#ifndef REPLAY_WIN_NO_MEDIA_INCLUDE
 #include <objbase.h>        // Component Object Model (COM) header
 #include <mmreg.h>          // Windows Multimedia, defines some WAVE structs
 #include <mmsystem.h>       // Windows Multimedia, used by Windows GDI, defines DIBINDEX macro
