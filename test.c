@@ -1,10 +1,9 @@
 
 #include "replay.h"
 
-#include <stdio.h>              // Required for: printf()
-
+#include <stdio.h>
 #if defined(_WIN32)
-    #include <conio.h>          // Windows only, no stardard library
+    #include <conio.h>
 #else
     // Required for kbhit() function in non-Windows platforms
     #include <stdio.h>
@@ -26,48 +25,31 @@ static char getch();            // Get pressed character
 #define getch _getch
 #endif
 
-//------------------------------------------------------------------------------------
-// Program main entry point
-//------------------------------------------------------------------------------------
 int main(int argc, char *argv[])
 {
-    // Initialization
-    //--------------------------------------------------------------------------------------
     static unsigned char key = 0;
-
     replay_InitAudioDevice();
 
-    RSound fxWav = replay_LoadSound("resources/weird.wav");       // Load WAV audio file
-    RSound fxOgg = replay_LoadSound("resources/target.ogg");      // Load OGG audio file
+    RSound fxWav = replay_LoadSound("resources/weird.wav");
+    RSound fxOgg = replay_LoadSound("resources/target.ogg");
 
     RMusic music = replay_LoadMusic("resources/country.mp3");
     replay_PlayMusic(music);
 
     printf("\nPress s or d to play sounds, ESC to stop...\n");
-    //--------------------------------------------------------------------------------------
-
-    // Main loop
     while (key != KEY_ESCAPE)
     {
         if (kbhit()) key = getch();
-
         if ((key == 's') || (key == 'S')) replay_PlaySound(fxWav);
         if ((key == 'd') || (key == 'D')) replay_PlaySound(fxOgg);
-
         key = 0;
-
         replay_UpdateMusic(music);
     }
 
-    // De-Initialization
-    //--------------------------------------------------------------------------------------
-    replay_UnloadSound(fxWav);         // Unload sound data
-    replay_UnloadSound(fxOgg);         // Unload sound data
-
-    replay_UnloadMusic(music);   // Unload music stream data
-
+    replay_UnloadSound(fxWav);
+    replay_UnloadSound(fxOgg);
+    replay_UnloadMusic(music);
     replay_CloseAudioDevice();
-    //--------------------------------------------------------------------------------------
 
     return 1;
 }
